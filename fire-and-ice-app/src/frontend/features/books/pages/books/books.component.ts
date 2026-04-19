@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
@@ -14,15 +14,10 @@ import { BooksBEResponse, getBooks, selectBooks, selectBooksIsLoading } from '..
   imports: [MatCardModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, AsyncPipe],
 })
 export class BooksComponent implements OnInit {
-  books$: Observable<BooksBEResponse>;
-  loading$: Observable<boolean>;
+  private store = inject(Store);
 
-  displayedColumns: string[] = ['title', 'author', 'description'];
-
-  constructor(private store: Store) {
-    this.books$ = this.store.select(selectBooks);
-    this.loading$ = this.store.select(selectBooksIsLoading);
-  }
+  books$: Observable<BooksBEResponse> = this.store.select(selectBooks);
+  loading$: Observable<boolean> = this.store.select(selectBooksIsLoading);
 
   ngOnInit(): void {
     this.store.dispatch(getBooks());

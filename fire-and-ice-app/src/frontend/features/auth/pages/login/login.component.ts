@@ -23,8 +23,8 @@ import { clearAuthMessages, login, selectIsLoggedIn } from '../../store';
   templateUrl: './login.html',
 })
 export class LoginComponent {
+  private store = inject(Store);
   loginForm: FormGroup;
-  store = inject(Store);
   $isLoggedIn = this.store.select(selectIsLoggedIn);
 
   constructor(private fb: FormBuilder) {

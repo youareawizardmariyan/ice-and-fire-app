@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -12,10 +12,8 @@ import { logout } from '../auth/store';
   templateUrl: './layout.html',
 })
 export class LayoutComponent {
-  constructor(
-    private store: Store,
-    private router: Router,
-  ) {}
+  private store: Store = inject(Store);
+  private router: Router = inject(Router);
 
   goToBooks() {
     this.router.navigate(['/books']);

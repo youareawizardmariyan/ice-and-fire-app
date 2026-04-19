@@ -22,8 +22,8 @@ import { clearAuthMessages, register } from '../../store';
   templateUrl: './register.html',
 })
 export class RegisterComponent implements OnInit {
+  private store = inject(Store);
   registerForm: FormGroup;
-  store = inject(Store);
 
   constructor(private fb: FormBuilder) {
     this.registerForm = this.fb.group(

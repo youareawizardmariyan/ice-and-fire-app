@@ -16,4 +16,11 @@ $theme: mat.define-theme(
 @include mat.all-component-typographies($theme);
 @include mat.all-component-densities($theme);
 
-// TODO theme is not applied correctly
+:root {
+  @include mat.snack-bar-overrides(
+    (
+      button-color: white,
+      container-color: rgb(118, 114, 231),
+    )
+  );
+}

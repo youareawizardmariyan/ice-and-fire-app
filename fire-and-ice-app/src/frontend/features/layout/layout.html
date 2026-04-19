@@ -1,0 +1,41 @@
+<mat-toolbar class="px-6 py-2 flex justify-between shadow-md border-b bg-amber-50 border-amber-200">
+  <div class="flex items-center gap-3">
+    <mat-icon class="text-amber-700">menu_book</mat-icon>
+    <span class="font-semibold text-xl text-amber-900 tracking-wide"> My Library </span>
+  </div>
+
+  <div class="hidden md:flex gap-6">
+    <button mat-button routerLink="/books" routerLinkActive="text-amber-800 font-semibold">
+      <mat-icon class="mr-1">book</mat-icon>
+      Books
+    </button>
+
+    <button mat-button routerLink="/characters" routerLinkActive="text-amber-800 font-semibold">
+      <mat-icon class="mr-1">groups</mat-icon>
+      Characters
+    </button>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <div class="hidden max-md:flex">
+      <button mat-icon-button routerLink="/books">
+        <mat-icon>book</mat-icon>
+      </button>
+    </div>
+
+    <div class="hidden max-md:flex">
+      <button mat-icon-button routerLink="/characters">
+        <mat-icon>groups</mat-icon>
+      </button>
+    </div>
+
+    <button mat-button color="warn" (click)="onLogout()">
+      <mat-icon class="mr-1">logout</mat-icon>
+      Logout
+    </button>
+  </div>
+</mat-toolbar>
+
+<div class="p-6 bg-amber-50 min-h-screen">
+  <router-outlet></router-outlet>
+</div>

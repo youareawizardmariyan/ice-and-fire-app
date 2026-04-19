@@ -4,16 +4,16 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { routes } from './app.routes';
 import { provideStore } from '@ngrx/store';
-import { authReducer } from './store/auth/auth.reducer';
 import { provideEffects } from '@ngrx/effects';
-import { AuthEffects } from './store/auth';
+import { AuthEffects, authReducer } from './features/auth/store';
+import { BooksEffects, booksReducer } from './features/books/store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideStore({ auth: authReducer }),
-    provideEffects(AuthEffects),
+    provideStore({ auth: authReducer, books: booksReducer }),
+    provideEffects([AuthEffects, BooksEffects]),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: false,

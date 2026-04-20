@@ -48,6 +48,9 @@ export const routes: Routes = [
 
   {
     path: '**',
-    redirectTo: 'login',
+    loadComponent: () =>
+      import('./features/shared/pages/not-found/not-found.component').then(
+        (c) => c.NotFoundComponent,
+      ),
   },
 ];

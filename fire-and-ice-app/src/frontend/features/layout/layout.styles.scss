@@ -1,0 +1,19 @@
+::ng-deep .transparent-field .mdc-text-field--filled {
+  background-color: transparent !important;
+}
+::ng-deep .transparent-field input.mat-mdc-input-element {
+  color: white !important;
+}
+::ng-deep .transparent-field input::placeholder {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+::ng-deep .transparent-field mat-icon {
+  color: white !important;
+}
+::ng-deep .transparent-field .mdc-floating-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+::ng-deep .transparent-field input {
+  caret-color: white !important;
+}

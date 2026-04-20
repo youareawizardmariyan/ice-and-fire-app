@@ -7,12 +7,13 @@ import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { AuthEffects, authReducer } from './features/auth/store';
 import { BooksEffects, booksReducer } from './features/books/store';
+import { favoritesReducer } from './features/favorites/store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    provideStore({ auth: authReducer, books: booksReducer }),
+    provideStore({ auth: authReducer, books: booksReducer, favorites: favoritesReducer }),
     provideEffects([AuthEffects, BooksEffects]),
     provideStoreDevtools({
       maxAge: 25,

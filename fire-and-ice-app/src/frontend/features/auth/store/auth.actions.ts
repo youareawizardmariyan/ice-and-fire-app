@@ -3,7 +3,10 @@ import { AuthBEResponse } from './auth.models';
 
 export const login = createAction('Login', props<{ username: string; password: string }>());
 
-export const loginSuccess = createAction('Login Success', props<{ response: AuthBEResponse }>());
+export const loginSuccess = createAction(
+  'Login Success',
+  props<{ response: AuthBEResponse; username: string }>(),
+);
 
 export const loginFail = createAction('Login Fail', props<{ error: string }>());
 

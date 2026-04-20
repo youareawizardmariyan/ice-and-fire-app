@@ -24,13 +24,20 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/books/pages/books/books.component').then((c) => c.BooksComponent),
       },
-      // {
-      //   path: 'characters',
-      //   loadComponent: () =>
-      //     import('./core/dashboard/pages/characters/characters.component').then(
-      //       (c) => c.CharactersComponent,
-      //     ),
-      // },
+      {
+        path: 'books/:id',
+        loadComponent: () =>
+          import('./features/books/pages/book-details/book-details.component').then(
+            (c) => c.BookDetailsComponent,
+          ),
+      },
+      {
+        path: 'favorites',
+        loadComponent: () =>
+          import('./features/favorites/pages/favorites/favorites.component').then(
+            (c) => c.FavoriteComponent,
+          ),
+      },
       {
         path: '',
         redirectTo: 'books',

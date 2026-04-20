@@ -1,4 +1,4 @@
-export type BooksBEResponse = Array<{
+export type SingleBook = {
   url: string;
   name: string;
   isbn: string;
@@ -10,4 +10,6 @@ export type BooksBEResponse = Array<{
   released: string;
   characters: Array<string>;
   povCharacters: Array<string>;
-}>;
+};
+
+export type BooksBEResponse = Array<SingleBook>;

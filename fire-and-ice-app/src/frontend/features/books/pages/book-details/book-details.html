@@ -1,0 +1,55 @@
+<div class="max-w-3xl mx-auto px-6 py-8">
+  <a
+    routerLink="/books"
+    class="inline-flex items-center gap-2 text-sky-400 hover:text-sky-300 transition mb-6"
+  >
+    ← Go Back
+  </a>
+
+  <div class="bg-slate-900/60 border border-slate-700 rounded-2xl p-6 shadow-lg">
+    <h1 class="text-2xl font-bold text-white mb-2">
+      {{ selectedBook?.name }}
+    </h1>
+
+    <p class="text-slate-300 mb-6">
+      <span class="text-slate-400">Author:</span>
+      {{ selectedBook?.authors?.[0] }}
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+      <div class="bg-slate-800/50 p-3 rounded-lg">
+        <p class="text-slate-400">ISBN</p>
+        <p class="text-white font-medium">{{ selectedBook?.isbn }}</p>
+      </div>
+
+      <div class="bg-slate-800/50 p-3 rounded-lg">
+        <p class="text-slate-400">Pages</p>
+        <p class="text-white font-medium">{{ selectedBook?.numberOfPages }}</p>
+      </div>
+
+      <div class="bg-slate-800/50 p-3 rounded-lg">
+        <p class="text-slate-400">Publisher</p>
+        <p class="text-white font-medium">{{ selectedBook?.publisher }}</p>
+      </div>
+
+      <div class="bg-slate-800/50 p-3 rounded-lg">
+        <p class="text-slate-400">Media Type</p>
+        <p class="text-white font-medium">{{ selectedBook?.mediaType }}</p>
+      </div>
+
+      <div class="bg-slate-800/50 p-3 rounded-lg">
+        <p class="text-slate-400">Released</p>
+        <p class="text-white font-medium">
+          {{ selectedBook?.released | date: 'mediumDate' }}
+        </p>
+      </div>
+
+      <div class="bg-slate-800/50 p-3 rounded-lg">
+        <p class="text-slate-400">Country</p>
+        <p class="text-white font-medium">
+          {{ selectedBook?.country }}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

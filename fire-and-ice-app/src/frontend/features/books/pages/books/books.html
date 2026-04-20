@@ -12,14 +12,12 @@
       <mat-icon class="text-6xl mb-4 text-amber-300">menu_book</mat-icon>
 
       <h2 class="text-xl font-semibold text-gray-700">No books found</h2>
-
-      <p class="text-sm mt-2 max-w-md">Try adjusting your search or explore other books.</p>
     </div>
   }
 
   <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-    @for (book of filteredBooks(); track $index) {
-      <mat-card class="rounded-2xl shadow-md hover:shadow-xl transition duration-300 flex flex-col">
+    @for (book of filteredBooks(); track book.name) {
+      <mat-card class="rounded-2xl flex flex-col">
         <mat-card-content class="flex-1 flex flex-col gap-2 p-4">
           <h2 class="text-lg font-semibold leading-tight">
             {{ book.name }}

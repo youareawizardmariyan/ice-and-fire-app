@@ -1,29 +1,20 @@
-<mat-toolbar class="px-6 py-2 flex justify-between shadow-md border-b bg-amber-50 border-amber-200">
+<mat-toolbar class="px-6 py-2 flex justify-between">
   <div class="flex items-center gap-3">
-    <mat-icon class="text-amber-700">menu_book</mat-icon>
-    <span class="font-semibold text-xl text-amber-900 tracking-wide"> My Library </span>
+    <mat-icon>menu_book</mat-icon>
+    <span class="font-semibold text-xl text-white">My Library</span>
   </div>
 
-  <div class="hidden md:flex gap-6">
-    <button mat-button routerLink="/books" routerLinkActive="text-amber-800 font-semibold">
+  <div class="hidden md:flex items-center gap-6">
+    <button mat-button routerLink="/books" routerLinkActive="font-semibold">
       <mat-icon class="mr-1">book</mat-icon>
       Books
     </button>
-    <button mat-button routerLink="/favorites" routerLinkActive="text-amber-800 font-semibold">
+    <button mat-button routerLink="/favorites" routerLinkActive="font-semibold">
       <mat-icon class="mr-1">heart</mat-icon>
       Favorites
     </button>
-  </div>
-
-  <div class="flex items-center gap-2">
-    <div class="hidden max-md:flex">
-      <button mat-icon-button routerLink="/books">
-        <mat-icon>book</mat-icon>
-      </button>
-    </div>
-
-    <form [formGroup]="searchForm">
-      <mat-form-field appearance="outline" class="w-64">
+    <form [formGroup]="searchForm" class="mt-5">
+      <mat-form-field>
         <mat-icon matPrefix>search</mat-icon>
         <input
           matInput
@@ -33,14 +24,22 @@
         />
       </mat-form-field>
     </form>
+  </div>
 
-    <button mat-button color="warn" (click)="onLogout()">
+  <div class="flex items-center gap-2">
+    <div class="hidden max-md:flex">
+      <button mat-icon-button routerLink="/books">
+        <mat-icon>book</mat-icon>
+      </button>
+    </div>
+
+    <button mat-button class="color:white" (click)="onLogout()">
       <mat-icon class="mr-1">logout</mat-icon>
       Logout
     </button>
   </div>
 </mat-toolbar>
 
-<div class="p-6 bg-amber-50 min-h-screen">
+<div class="p-6 min-h-screen bg-[url('/assets/library.jpg')] bg-cover">
   <router-outlet></router-outlet>
 </div>

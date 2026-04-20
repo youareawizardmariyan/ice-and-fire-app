@@ -1,25 +1,42 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AsyncPipe } from '@angular/common';
-import { BooksBEResponse, getBooks, selectBooks, selectBooksIsLoading } from '../../store';
+import { BooksBEResponse } from '../../store';
+import { SearchService } from '../../services/search.service';
+import { BooksService } from '../../services/books.service';
 
 @Component({
   selector: 'app-books',
   templateUrl: './books.html',
-  imports: [MatCardModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, AsyncPipe],
+  imports: [MatCardModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
 })
 export class BooksComponent implements OnInit {
-  private store = inject(Store);
+  private searchService = inject(SearchService);
+  private booksService = inject(BooksService);
+  books = signal<BooksBEResponse>([]);
+  loading = signal(true);
 
-  books$: Observable<BooksBEResponse> = this.store.select(selectBooks);
-  loading$: Observable<boolean> = this.store.select(selectBooksIsLoading);
+  filteredBooks = computed(() => {
+    const books = this.books();
+    const searchTerm = this.searchService.search().toLowerCase();
+
+    if (!searchTerm) return books;
+
+    return books.filter(
+      (book) =>
+        book.name.toLowerCase().includes(searchTerm) ||
+        book.authors[0]?.toLowerCase().includes(searchTerm) ||
+        book.country.toLowerCase().includes(searchTerm),
+    );
+  });
 
   ngOnInit(): void {
-    this.store.dispatch(getBooks());
+    // TODO avoid manual subscription
+    this.booksService.getBooks().subscribe((data) => {
+      this.books.set(data);
+      this.loading.set(false);
+    });
   }
 }

@@ -24,15 +24,14 @@ import { clearAuthMessages, login, selectIsLoggedIn } from '../../store';
 })
 export class LoginComponent {
   private store = inject(Store);
-  loginForm: FormGroup;
+  private fb = inject(FormBuilder);
+
   $isLoggedIn = this.store.select(selectIsLoggedIn);
 
-  constructor(private fb: FormBuilder) {
-    this.loginForm = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required],
-    });
-  }
+  loginForm: FormGroup = this.fb.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
   ngOnInit(): void {
     this.store.dispatch(clearAuthMessages());

@@ -23,20 +23,18 @@ import { clearAuthMessages, register } from '../../store';
 })
 export class RegisterComponent implements OnInit {
   private store = inject(Store);
-  registerForm: FormGroup;
+  private fb = inject(FormBuilder);
 
-  constructor(private fb: FormBuilder) {
-    this.registerForm = this.fb.group(
-      {
-        username: ['', Validators.required],
-        password: ['', Validators.required],
-        repeatPassword: ['', Validators.required],
-      },
-      {
-        validators: passwordMatchValidator,
-      },
-    );
-  }
+  registerForm: FormGroup = this.fb.group(
+    {
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+      repeatPassword: ['', Validators.required],
+    },
+    {
+      validators: passwordMatchValidator,
+    },
+  );
 
   ngOnInit(): void {
     this.store.dispatch(clearAuthMessages());

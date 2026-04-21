@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ActivatedRoute, provideRouter } from '@angular/router';
-import { vi } from 'vitest';
 import { clearAuthMessages, login, selectIsLoggedIn } from '../../store';
 
 const initialState = {

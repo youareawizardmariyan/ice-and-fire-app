@@ -2,7 +2,6 @@ import { TestBed } from '@angular/core/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { provideRouter } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { vi } from 'vitest';
 import { BooksComponent } from './books.component';
 import { getBooks, selectBooks, SingleBook } from '../../store';
 import { addFavorite, removeFavorite, selectFavoriteBooks } from '../../../favorites/store';

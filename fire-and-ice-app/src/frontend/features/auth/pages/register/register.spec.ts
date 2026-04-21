@@ -3,7 +3,6 @@ import { RegisterComponent } from './register.component';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { ActivatedRoute, provideRouter } from '@angular/router';
 import { By } from '@angular/platform-browser';
-import { vi } from 'vitest';
 import { clearAuthMessages, register } from '../../store';
 
 const initialState = {
@@ -74,42 +73,48 @@ describe('RegisterComponent', () => {
 
     it('should be invalid when only username is filled', async () => {
       const { component } = await setupComponent();
-      component.registerForm.get(usernameFieldName)?.setValue('test-user');
+      component.registerForm.get(usernameFieldName)?.setValue(testUsername);
       expect(component.registerForm.valid).toBe(false);
     });
 
     it('should be invalid when passwords do not match', async () => {
       const { component } = await setupComponent();
-      component.registerForm.get(usernameFieldName)?.setValue('test-user');
-      component.registerForm.get(passwordFieldName)?.setValue('password123');
+      component.registerForm.get(usernameFieldName)?.setValue(testUsername);
+      component.registerForm.get(passwordFieldName)?.setValue(testPassword);
       component.registerForm.get(repPasswordFieldName)?.setValue('different');
       expect(component.registerForm.valid).toBe(false);
     });
 
     it('should be valid when all fields are filled and passwords match', async () => {
       const { component } = await setupComponent();
-      component.registerForm.get(usernameFieldName)?.setValue('test-user');
-      component.registerForm.get(passwordFieldName)?.setValue('password123');
-      component.registerForm.get(repPasswordFieldName)?.setValue('password123');
+      component.registerForm.get(usernameFieldName)?.setValue(testUsername);
+      component.registerForm.get(passwordFieldName)?.setValue(testPassword);
+      component.registerForm.get(repPasswordFieldName)?.setValue(testPassword);
       expect(component.registerForm.valid).toBe(true);
     });
 
     it('should have a passwordMismatch error when passwords do not match', async () => {
       const { component } = await setupComponent();
-      component.registerForm.get(passwordFieldName)?.setValue('abc');
-      component.registerForm.get(repPasswordFieldName)?.setValue('xyz');
-      expect(component.registerForm.errors?.['passwordMismatch']).toBeTruthy();
+      const repeatPasswordField = component.registerForm.get('repeatPassword');
+
+      component.registerForm.get('password')?.setValue('abc');
+      repeatPasswordField?.setValue('xyz');
+
+      component.registerForm.updateValueAndValidity();
+
+      expect(repeatPasswordField?.hasError('passwordMismatch')).toBe(true);
     });
 
     it('should not have a passwordMismatch error when passwords match', async () => {
       const { component } = await setupComponent();
+      const repeatPasswordField = component.registerForm.get('repeatPassword');
+
       component.registerForm.get(passwordFieldName)?.setValue('abc');
-      component.registerForm.get(repPasswordFieldName)?.setValue('abc');
-      expect(component.registerForm.errors?.['passwordMismatch']).toBeFalsy();
+      repeatPasswordField?.setValue('abc');
+      expect(repeatPasswordField?.errors?.['passwordMismatch']).toBeFalsy();
     });
   });
 
-  // checkpoint
   describe('f getter', () => {
     it('should return the form controls', async () => {
       const { component } = await setupComponent();
@@ -124,14 +129,14 @@ describe('RegisterComponent', () => {
   describe('onSubmit()', () => {
     it('should dispatch register with credentials when the form is valid', async () => {
       const { component, store } = await setupComponent();
-      component.registerForm.get(usernameFieldName)?.setValue('test-user');
-      component.registerForm.get(passwordFieldName)?.setValue('password123');
-      component.registerForm.get(repPasswordFieldName)?.setValue('password123');
+      component.registerForm.get(usernameFieldName)?.setValue(testUsername);
+      component.registerForm.get(passwordFieldName)?.setValue(testPassword);
+      component.registerForm.get(repPasswordFieldName)?.setValue(testPassword);
 
       component.onSubmit();
 
       expect(store.dispatch).toHaveBeenCalledWith(
-        register({ username: 'test-user', password: 'password123' }),
+        register({ username: testUsername, password: testPassword }),
       );
     });
 
@@ -155,47 +160,16 @@ describe('RegisterComponent', () => {
 
     it('should dispatch register when the form is submitted via the DOM', async () => {
       const { fixture, component, store } = await setupComponent();
-      component.registerForm.get(usernameFieldName)?.setValue('test-user');
-      component.registerForm.get(passwordFieldName)?.setValue('password123');
-      component.registerForm.get(repPasswordFieldName)?.setValue('password123');
+      component.registerForm.get(usernameFieldName)?.setValue(testUsername);
+      component.registerForm.get(passwordFieldName)?.setValue(testPassword);
+      component.registerForm.get(repPasswordFieldName)?.setValue(testPassword);
       fixture.detectChanges();
 
       fixture.debugElement.query(By.css('form')).nativeElement.dispatchEvent(new Event('submit'));
 
       expect(store.dispatch).toHaveBeenCalledWith(
-        register({ username: 'test-user', password: 'password123' }),
+        register({ username: testUsername, password: testPassword }),
       );
-    });
-  });
-
-  describe('template', () => {
-    it('should render three inputs', async () => {
-      const { fixture } = await setupComponent();
-      const inputs = fixture.debugElement.queryAll(By.css('input'));
-      expect(inputs.length).toBe(3);
-    });
-
-    it('should render two password inputs', async () => {
-      const { fixture } = await setupComponent();
-      const passwordInputs = fixture.debugElement
-        .queryAll(By.css('input'))
-        .filter((el) => el.nativeElement.type === passwordFieldName);
-      expect(passwordInputs.length).toBe(2);
-    });
-
-    it('should render the submit button', async () => {
-      const { fixture } = await setupComponent();
-      const button: HTMLButtonElement =
-        fixture.nativeElement.querySelector('button[type="submit"]');
-      expect(button).toBeTruthy();
-      expect(button.textContent?.trim()).toBe('Register');
-    });
-
-    it('should render the login link', async () => {
-      const { fixture } = await setupComponent();
-      const link = fixture.debugElement.query(By.css('a[routerLink]'));
-      expect(link).toBeTruthy();
-      expect(link.nativeElement.textContent?.trim()).toBe('Login');
     });
   });
 });

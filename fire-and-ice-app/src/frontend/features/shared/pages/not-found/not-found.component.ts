@@ -10,9 +10,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
         <h1 class="text-6xl font-extrabold text-white mb-4 title">404</h1>
         <p class="text-slate-400 mb-6">
           Redirecting to login in
-          <span class="text-sky-400 font-semibold text-lg counter">
-            {{ counter() }}
-          </span>
+          <span class="text-sky-400 font-semibold text-lg counter">{{ counter() }}</span>
           seconds...
         </p>
         <mat-progress-bar mode="indeterminate" class="progress-bar" />

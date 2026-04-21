@@ -1,9 +1,9 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { SearchService } from '../../services/search.service';
+import { SearchService } from '../../services/search/search.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { getBooks, selectBooks, SingleBook } from '../../store';
@@ -16,10 +16,9 @@ import { RouterModule } from '@angular/router';
   styleUrl: './books.styles.scss',
   imports: [MatCardModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, RouterModule],
 })
-export class BooksComponent {
+export class BooksComponent implements OnInit {
   private searchService = inject(SearchService);
   private store = inject(Store);
-  private _ = this.store.dispatch(getBooks());
 
   favorites = this.store.selectSignal(selectFavoriteBooks);
   books = toSignal(this.store.select(selectBooks), { initialValue: [] });
@@ -38,6 +37,10 @@ export class BooksComponent {
         book.country.toLowerCase().includes(searchTerm),
     );
   });
+
+  ngOnInit(): void {
+    this.store.dispatch(getBooks());
+  }
 
   toggleFavorite(book: SingleBook) {
     if (this.favorites().find((v) => v.name === book.name)) {

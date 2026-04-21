@@ -7,15 +7,15 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   template: `
     <div class="min-h-screen flex items-center justify-center bg-slate-950 px-6">
       <div class="text-center max-w-md">
-        <h1 class="text-6xl font-extrabold text-white mb-4">404</h1>
+        <h1 class="text-6xl font-extrabold text-white mb-4 title">404</h1>
         <p class="text-slate-400 mb-6">
           Redirecting to login in
-          <span class="text-sky-400 font-semibold text-lg">
+          <span class="text-sky-400 font-semibold text-lg counter">
             {{ counter() }}
           </span>
           seconds...
         </p>
-        <mat-progress-bar mode="indeterminate" />
+        <mat-progress-bar mode="indeterminate" class="progress-bar" />
       </div>
     </div>
   `,

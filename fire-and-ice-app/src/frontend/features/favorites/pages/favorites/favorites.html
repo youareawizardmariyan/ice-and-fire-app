@@ -1,14 +1,14 @@
 <h1 class="text-3xl font-semibold mb-6 text-white">💝 Your favorites</h1>
 
 @if (!favorites().length) {
-  <h2 class="text-white text-center">
+  <h2 class="text-white text-center empty-state">
     "Emptiness which is conceptually liable to be mistaken for sheer nothingness is in fact the
     reservoir of infinite possibilities."
   </h2>
 }
 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
   @for (book of favorites(); track book.name) {
-    <mat-card class="rounded-2xl flex flex-col text-white">
+    <mat-card class="rounded-2xl flex flex-col text-white book-card">
       <mat-card-content class="flex-1 flex flex-col gap-2 p-4">
         <h2 class="text-lg font-semibold leading-tight">
           {{ book.name }}
@@ -22,7 +22,7 @@
       </mat-card-content>
 
       <mat-card-actions class="flex justify-between items-center px-4 pb-4">
-        <button (click)="toggleFavorite(book)" mat-icon-button>
+        <button (click)="toggleFavorite(book)" mat-icon-button class="favorite-button">
           {{ isFavorite(book) ? '❤️' : '🤍' }}
         </button>
       </mat-card-actions>

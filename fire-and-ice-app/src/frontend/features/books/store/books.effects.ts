@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { getBooks, getBooksSuccess } from './books.actions';
 import { map, switchMap } from 'rxjs';
-import { BooksService } from '../services/books.service';
+import { BooksService } from '../services/books/books.service';
 
 @Injectable()
 export class BooksEffects {

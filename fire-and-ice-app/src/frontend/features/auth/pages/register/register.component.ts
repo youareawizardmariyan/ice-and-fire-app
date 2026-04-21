@@ -45,9 +45,10 @@ export class RegisterComponent implements OnInit {
       const { username, password } = this.registerForm.getRawValue();
 
       this.store.dispatch(register({ username, password }));
-    } else {
-      this.registerForm.markAllAsTouched();
+      return;
     }
+
+    this.registerForm.markAllAsTouched();
   }
 
   get f() {

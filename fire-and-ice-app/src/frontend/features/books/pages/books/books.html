@@ -2,15 +2,13 @@
 
 @if (loading()) {
   <div class="flex justify-center py-10">
-    <mat-spinner></mat-spinner>
+    <mat-spinner class="spinner" />
   </div>
 }
 
 @if (!loading() && filteredBooks().length === 0) {
   <div class="flex flex-col items-center justify-center py-16 text-center text-gray-500">
-    <mat-icon class="text-6xl mb-4 text-amber-300">menu_book</mat-icon>
-
-    <h2 class="text-xl font-semibold text-gray-700">No books found</h2>
+    <h2 class="text-xl font-semibold text-white">🙅‍♂️ No books found</h2>
   </div>
 }
 

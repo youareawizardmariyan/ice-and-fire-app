@@ -42,9 +42,11 @@ export class LoginComponent {
       const { username, password } = this.loginForm.getRawValue();
 
       this.store.dispatch(login({ username, password }));
-    } else {
-      this.loginForm.markAllAsTouched();
+
+      return;
     }
+
+    this.loginForm.markAllAsTouched();
   }
 
   get f() {

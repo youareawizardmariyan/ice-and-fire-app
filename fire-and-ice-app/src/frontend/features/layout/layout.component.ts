@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { MatButtonModule } from '@angular/material/button';
 import { logout, selectUsername } from '../auth/store';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { SearchService } from '../books/services/search.service';
+import { SearchService } from '../books/services/search/search.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { toSignal } from '@angular/core/rxjs-interop';
